@@ -1,3 +1,4 @@
+
 //localStorage.clear();
 function logToConsole(people) {
     console.log(people); // works fine
@@ -7,6 +8,8 @@ function logToConsole(people) {
 let people = [];
 let likes = [];
 let dislikes = [];
+let ll;
+
 if(localStorage.getItem("likes") !== null){
     likes = JSON.parse(localStorage.getItem("likes"));
 }
@@ -29,7 +32,9 @@ fetch('https://randomuser.me/api/?results=10')
             picture: person.picture.large,
             age: person.dob.age,
             place: person.location.street + "<br>" + person.location.city,
-            id: person.login.uuid
+            id: person.login.uuid,
+            lat: person.location.coordinates.latitude,
+            long: person.location.coordinates.longitude
         }
         people.push(x);
     }}
@@ -50,7 +55,40 @@ function judge(){
         document.getElementById("name").innerHTML = people[0].name;
         document.getElementById("age").innerHTML = people[0].age;
         document.getElementById("location").innerHTML = people[0].place;
+       ;
+        var output = document.getElementById("out");
+        function succes(position){
+             var latitude  = position.coords.latitude;
+             var longitude = position.coords.longitude;
+            
+            let lat1 = people[0].lat;
+            let lon1 = people[0].long;
+            let lat2 = latitude;
+            let lon2 = longitude;
+            
+            var p = 0.017453292519943295;    // Math.PI / 180
+          var c = Math.cos;
+          var a = 0.5 - c((lat2 - lat1) * p)/2 + 
+                  c(lat1 * p) * c(lat2 * p) * 
+                  (1 - c((lon2 - lon1) * p))/2;
+
+          let x = 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+            document.getElementById("output").innerHTML = "the distance to this person: "+ x + " km";
+        }
+        function error() {
+            output.innerHTML = "Unable to retrieve your location";
+        }
+        navigator.geolocation.getCurrentPosition(succes, error);
+        
+        map.flyTo({
+        center: [
+            -40,50]
+    });
     }
+    
+    
+    
+    
     showPeople();
     document.getElementById("heartclick").addEventListener("click", function(){
         if(people.length<=1){
@@ -138,3 +176,8 @@ document.getElementById("clickforlikes").addEventListener('click', function(){
     document.getElementById("goAwayclick").addEventListener('click', function(){
     document.querySelectorAll('.yourlikes')[0].style.left = "100%";
 })
+    
+    
+    
+    
+   

@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="icon" href="favicon.ico">
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+
 
     <script src="js/libs/modernizr-2.8.3.min.js"></script>
 </head>
@@ -31,9 +34,32 @@
             <div class="clickicon skip" id="skipclick">
                 <img class="heart" src="images/skip.png">
             </div>
+            
         </div>
 
+        <div id='map' style='width: 400px; height: 300px; position: fixed; bottom: 0'></div>
+<script>
+ mapboxgl.accessToken = 'pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-74.50, 40], // starting position
+    zoom: 9 // starting zoom
+});
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+// Add geolocate control to the map.
+
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
+</script>
+        <div id="output"></div>
     </div>
     <div class="yourlikes">
         <div id="goAwayclick">x</div>
