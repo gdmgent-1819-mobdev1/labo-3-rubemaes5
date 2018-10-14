@@ -1,7 +1,8 @@
-*{
+* {
     font-family: futura, sans-serif;
 }
-#surroundbox{
+
+#surroundbox {
     max-width: 300px;
     width: 100%;
     margin: 40px auto;
@@ -10,7 +11,8 @@
     min-height: 500px;
     position: relative;
 }
-.clickicon{
+
+.clickicon {
     height: 70px;
     width: 70px;
     padding: 50px;
@@ -20,26 +22,31 @@
     transform: scale(0.5);
     cursor: pointer;
 }
-img{
+
+img {
     width: 100%;
     transform: translateY(-50%);
     margin-top: 50%;
 }
-.heart{
+
+.heart {
     bottom: 20px;
     left: 5px;
 }
-.skip{
+
+.skip {
     bottom: 20px;
     right: 5px;
 }
-#clickforlikes{
+
+#clickforlikes {
     cursor: pointer;
     display: inline-block;
     margin-top: 20px;
     margin-left: 20%;
 }
-.yourlikes{
+
+.yourlikes {
     width: 100%;
     height: 100vh;
     overflow: scroll;
@@ -49,36 +56,44 @@ img{
     left: 100%;
     transition: all 0.5s ease;
 }
-#content img{
+
+#content img {
     width: 70%;
     margin: 10% 00% 0% 50%;
     transform: translateX(-50%);
 }
-#content{
+
+#content {
     position: absolute;
     width: 100%;
 }
-#content p{
+
+#content p {
     margin-left: 50px;
     margin-top: 10px;
 }
-#goAwayclick{
+
+#goAwayclick {
     font-size: 3em;
     margin: 10px;
     cursor: pointer;
     display: inline-block;
 }
-#likes, #dislikes{
+
+#likes,
+#dislikes {
     width: 40%;
     float: left;
 }
-h1{
+
+h1 {
     font-size: 2em;
     margin-bottom: 20px;
 }
-#output{
+
+#output {
     position: fixed;
-    width: 100px;
-    top: 50px;
+    width: 400px;
+    top: 150px;
     left: 30px;
 }
