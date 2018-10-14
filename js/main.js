@@ -82,7 +82,7 @@ function judge(){
         
         map.flyTo({
         center: [
-            -40,50]
+            people[0].long, people[0].lat]
     });
     }
     
