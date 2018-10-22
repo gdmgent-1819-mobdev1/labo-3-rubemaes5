@@ -2,12 +2,12 @@
 function logToConsole(people) {
     console.log(people); // works fine
     console.log(people[0]); // returns undefined
-    console.log(people.length); //returns 0
 };
 let people = [];
 let likes = [];
 let dislikes = [];
 let ll;
+let i = 0;
 
 if (localStorage.getItem("likes") !== null) {
     likes = JSON.parse(localStorage.getItem("likes"));
@@ -54,18 +54,19 @@ function judge() {
         document.getElementById("image").src = people[0].picture;
         document.getElementById("name").innerHTML = people[0].name;
         document.getElementById("age").innerHTML = people[0].age;
-        document.getElementById("location").innerHTML = people[0].place;;
-        var output = document.getElementById("out");
+        document.getElementById("location").innerHTML = people[0].place;
+        
+        let output = document.getElementById("out");
         function succes(position) {
-            var latitude = position.coords.latitude;
-            var longitude = position.coords.longitude;
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
             let lat1 = people[0].lat;
             let lon1 = people[0].long;
             let lat2 = latitude;
             let lon2 = longitude;
-            var p = 0.017453292519943295; // Math.PI / 180
-            var c = Math.cos;
-            var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+            let p = 0.017453292519943295; // Math.PI / 180
+            let c = Math.cos;
+            let a = 0.5 - c((lat2 - lat1) * p) / 2 +
                 c(lat1 * p) * c(lat2 * p) *
                 (1 - c((lon2 - lon1) * p)) / 2;
             let x = Math.round(12742 * Math.asin(Math.sqrt(a))); // 2 * R; R = 6371 km
@@ -77,11 +78,41 @@ function judge() {
             output.innerHTML = "Unable to retrieve your location";
         }
         navigator.geolocation.getCurrentPosition(succes, error);
-
+        
         map.flyTo({
             center: [
             people[0].long, people[0].lat]
         });
+        let radius=40; //radius of the circle
+        map.addSource("makecircle"+i, { //making a source for the radius
+            "type": "geojson",
+            "data": {
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "geometry": {
+                "type": "Point",
+                "coordinates": [people[0].long, people[0].lat] 
+                }
+            }]
+            }
+        });
+        map.addLayer({ //displaying the radius of the circle
+            "id": "makecircle"+i,
+            "type": "circle",
+            "source": "makecircle"+i,
+            "paint": {
+            "circle-radius": radius, //radius with the variable radius
+            "circle-color": "#ff0000", //color
+            "circle-opacity": 0.5, //opacity
+            }
+        });
+        let x = i-1;
+        map.removeLayer({ //displaying the radius of the circle
+            "id": "makecircle"+x
+            
+        });
+        i++;
     }
     showPeople();
     document.getElementById("heartclick").addEventListener("click", function () {
@@ -182,3 +213,34 @@ document.getElementById("clickforlikes").addEventListener('click', function () {
 document.getElementById("goAwayclick").addEventListener('click', function () {
     document.querySelectorAll('.yourlikes')[0].style.left = "100%";
 })
+
+console.log(1+"1"-"1");
+
+
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYnJlYWtpbmcyNjIiLCJhIjoiY2puOWF4d2huMDRtMTNycDg5eTBkaWw2aSJ9.L5hwBhfK_8aFPp6nTCruwQ';
+var map = new mapboxgl.Map({
+    container: 'map', // container id
+    style: 'mapbox://styles/mapbox/streets-v9',
+    center: [-74.50, 40], // starting position
+    zoom: 9 // starting zoom
+});
+
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+// Add geolocate control to the map.
+
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+    trackUserLocation: true
+}));
+
+
+
+
+
+
+        
