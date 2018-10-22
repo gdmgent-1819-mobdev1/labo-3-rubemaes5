@@ -97,3 +97,32 @@ h1 {
     top: 150px;
     left: 30px;
 }
+.likedropzone{
+    background: green;
+    width: 500px;
+    height: 100vh;
+    float: left;
+}
+.dislikedropzone{
+    background: red;
+    width: 500px;
+    height: 100vh;
+    float: right;
+}
+#surroundbox{
+    float: left;
+    margin: 30px 30px;
+}
+#map{
+    width: 100% !important;
+}
+#clickforlikes{
+    position: absolute;
+    top: 600px;
+    left: 400px;
+}
+#output{
+    position: absolute;
+    top: 700px;
+    left: 600px;
+}
